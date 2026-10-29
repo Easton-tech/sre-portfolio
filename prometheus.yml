@@ -1,8 +1,19 @@
 global:
   scrape_interval: 5s
 
+# Говорим Prometheus, где искать правила
+rule_files:
+  - "alert.rules.yml"
+
+# Говорим, куда отправлять алерты
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+
 scrape_configs:
   - job_name: 'my-app'
     static_configs:
       - targets: ['app:8080']
+
 

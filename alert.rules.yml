@@ -1,0 +1,11 @@
+groups:
+  - name: SLO_Alerts
+    rules:
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 0.3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Высокая задержка (p95 > 300ms)"
+          description: "Наш SLO нарушен. Текущая задержка: {{ $value }} сек."
