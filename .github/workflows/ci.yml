@@ -35,7 +35,7 @@ jobs:
       with:
         registry: ghcr.io
         username: \${{ github.actor }}
-        password: \${{ secrets.GITHUB_TOKEN }}
+        password: \${{ secrets.GHCR_TAP }}
 
     - name: Set lower case image name
       run: |
