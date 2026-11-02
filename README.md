@@ -1,4 +1,5 @@
 # SRE Portfolio: Observability & Alerting Stack
+[![CI/CD Pipeline](https://github.com/Easton-tech/sre-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Easton-tech/sre-portfolio/actions/workflows/ci.yml)
 
 ## 📌 О проекте
 Полноценный стек наблюдаемости и алертинга для микросервиса. Включает в себя сбор метрик, визуализацию «Золотых сигналов», формализацию SLO, генерацию алертов при деградации и нагрузочное тестирование.
