@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-# Даем пайплайну права на запись пакетов (для GHCR) и чтение кода
 permissions:
   contents: read
   packages: write
@@ -30,21 +29,21 @@ jobs:
         pip install flake8
         flake8 app.py --count --select=E9,F63,F7,F82 --show-source --statistics
 
-    #  Логин в GitHub Container Registry
     - name: Log in to GitHub Container Registry
       if: github.event_name != 'pull_request'
       uses: docker/login-action@v3
       with:
         registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        username: \${{ github.actor }}
+        password: \${{ secrets.GITHUB_TOKEN }}
 
-    #  Сборка и публикация Docker-образа
+    - name: Set lower case image name
+      run: |
+        echo "IMAGE_NAME=\$(echo \${{ github.repository }} | tr '[:upper:]' '[:lower:]')" >> \$GITHUB_ENV
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
-        # Публикуем только при пуше в main, не при Pull Request
-        push: ${{ github.event_name != 'pull_request' }}
-        # Имя образа: ghcr.io/твой_ник/имя_репозитория
-        tags: ghcr.io/${{ github.repository }}:latest
+        push: \${{ github.event_name != 'pull_request' }}
+        tags: ghcr.io/\${{ env.IMAGE_NAME }}:latest
