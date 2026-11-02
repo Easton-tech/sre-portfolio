@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
   packages: write
-
+  id-token: write
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
