@@ -15,7 +15,7 @@ def hello():
     time.sleep(random.uniform(0.01, 0.3)) 
     REQUEST_LATENCY.observe(time.time() - start)
     REQUEST_COUNT.labels(status='200').inc()
-    return {"status": "ok"}
+    return {"status": "ok", "version": "2.0"}
 
 @app.route('/metrics')
 def metrics():
